@@ -1,28 +1,39 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <v-app id="inspire">
+        <v-toolbar color="blue darken-4" dark fixed app>
+          <img class="logo" src="./assets/logo.png" alt="Logo">
+            <v-toolbar-title class="hidden-xs-only">Vue Photon Voice</v-toolbar-title>
+            <v-spacer></v-spacer>
+        </v-toolbar>
+        <v-content class="blue lighten-3 lighten-3">
+            <v-container class="app-container white" fill-height>
+                <v-layout>
+                  <v-flex xs12>
+                        <v-btn fab dark color="blue darken-4">
+                          <v-icon dark>mic</v-icon>
+                        </v-btn>
+                  </v-flex>
+                </v-layout>
+            </v-container>
+        </v-content>
+        <v-footer color="blue darken-4" app>
+            <span class="footer-text text-xs-center white--text">Natalia Tepluhina &copy; 2018 </span>
+        </v-footer>
+    </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+  name: 'app'
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.logo {
+  max-height: 100%;
+}
+
+.footer-text {
+  width: 100%;
 }
 </style>
