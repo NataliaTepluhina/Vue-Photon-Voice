@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'app',
   data() {
@@ -32,7 +33,9 @@ export default {
       recognition: null,
       result: '',
       colors: ['red', 'magenta', 'blue', 'white', 'orange', 'green', 'yellow'],
-      activeColor: ''
+      activeColor: '',
+      url:
+        'https://api.particle.io/v1/devices/370027000947363339343638/colorMode?access_token=ee84182b5d73f2c4273aec9bc51f63e6d46b496f'
     };
   },
   methods: {
@@ -43,6 +46,16 @@ export default {
         const color = this.colors.find(item => item === this.result);
         if (color) {
           this.activeColor = color;
+          axios
+            .post(this.url, {
+              color
+            })
+            .then(response => {
+              console.log(response);
+            })
+            .catch(error => {
+              console.log(error);
+            });
         }
       };
     }
