@@ -13,7 +13,6 @@
                           <v-icon dark>mic</v-icon>
                         </v-btn>
                         <h2 class="title">Result: {{result}}</h2>
-                        <div class="color-block" :style="{backgroundColor: activeColor}"></div>
                   </v-flex>
                 </v-layout>
             </v-container>
@@ -32,7 +31,19 @@ export default {
     return {
       recognition: null,
       result: '',
-      colors: ['red', 'magenta', 'blue', 'white', 'orange', 'green', 'yellow'],
+      colors: [
+        'red',
+        'magenta',
+        'blue',
+        'white',
+        'orange',
+        'green',
+        'yellow',
+        'cyan',
+        'rainbow',
+        'blink',
+        'stop'
+      ],
       activeColor: '',
       url:
         'https://api.particle.io/v1/devices/370027000947363339343638/colorMode?access_token=ee84182b5d73f2c4273aec9bc51f63e6d46b496f'
@@ -43,19 +54,14 @@ export default {
       this.recognition.start();
       this.recognition.onresult = event => {
         this.result = event.results[0][0].transcript.toLowerCase();
-        const color = this.colors.find(item => item === this.result);
+        const color = this.colors.find(
+          item => this.result.indexOf(item) !== -1
+        );
         if (color) {
           this.activeColor = color;
-          axios
-            .post(this.url, {
-              color
-            })
-            .then(response => {
-              console.log(response);
-            })
-            .catch(error => {
-              console.log(error);
-            });
+          axios.post(this.url, {
+            color
+          });
         }
       };
     }
@@ -74,10 +80,6 @@ export default {
     this.recognition.onspeechend = () => {
       this.recognition.stop();
     };
-
-    this.recognition.onnomatch = event => {};
-
-    this.recognition.onerror = event => {};
   }
 };
 </script>
